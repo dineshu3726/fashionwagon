@@ -504,7 +504,24 @@ class Command(BaseCommand):
 
         return created
 
+    def ensure_categories(self):
+        categories = [
+            ('Kurtas', 'women', 'kurtas'),
+            ('Dresses', 'women', 'dresses'),
+            ('Tops', 'women', 'tops'),
+            ('Shirts', 'men', 'shirts'),
+            ('T-Shirts', 'men', 'tshirts'),
+            ('Jeans', 'men', 'jeans'),
+            ('Kids Wear', 'kids', 'kids-wear'),
+            ('Accessories', 'unisex', 'accessories'),
+        ]
+        for name, gender, slug in categories:
+            Category.objects.get_or_create(slug=slug, defaults={'name': name, 'gender': gender})
+        self.stdout.write(self.style.SUCCESS('Categories ready.'))
+
     def handle(self, *args, **options):
+        self.ensure_categories()
+
         batches = [
             (WOMEN_KURTAS, 'kurtas', 'women'),
             (WOMEN_DRESSES, 'dresses', 'women'),
@@ -518,10 +535,10 @@ class Command(BaseCommand):
 
         total = 0
         for data, slug, gender in batches:
-            self.stdout.write(f'\n📦 Seeding {slug} ({len(data)} products)...')
+            self.stdout.write(f'\nSeeding {slug} ({len(data)} products)...')
             n = self.seed_batch(data, slug, gender)
             total += n
-            self.stdout.write(self.style.SUCCESS(f'   → {n} new products added'))
+            self.stdout.write(self.style.SUCCESS(f'   -> {n} new products added'))
 
-        self.stdout.write(self.style.SUCCESS(f'\n✅ Done! {total} new products added.'))
+        self.stdout.write(self.style.SUCCESS(f'\nDone! {total} new products added.'))
         self.stdout.write(f'   Total in DB: {Product.objects.count()}')
