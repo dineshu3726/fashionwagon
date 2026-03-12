@@ -3,9 +3,15 @@ from .models import Category, Product, ProductImage
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    url = serializers.SerializerMethodField()
+
     class Meta:
         model = ProductImage
-        fields = ['id', 'image', 'is_primary']
+        fields = ['id', 'url', 'is_primary']
+
+    def get_url(self, obj):
+        request = self.context.get('request')
+        return obj.get_image_url(request)
 
 
 class CategorySerializer(serializers.ModelSerializer):

@@ -50,7 +50,7 @@ export default function ProductDetailPage() {
 
   const wishlisted = isWishlisted(product.id);
   const images = product.images || [];
-  const currentImage = images[selectedImage]?.image;
+  const currentImage = images[selectedImage]?.url;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
@@ -68,7 +68,7 @@ export default function ProductDetailPage() {
                 onClick={() => setSelectedImage(i)}
                 className={`w-16 h-20 overflow-hidden border-2 ${i === selectedImage ? 'border-[#e07b4f]' : 'border-transparent'}`}
               >
-                <img src={img.image} alt="" className="w-full h-full object-cover" />
+                <img src={img.url} alt="" className="w-full h-full object-cover" />
               </button>
             ))}
           </div>

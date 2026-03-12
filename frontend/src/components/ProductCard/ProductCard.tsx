@@ -12,7 +12,7 @@ export default function ProductCard({ product }: Props) {
   const { toggle, isWishlisted } = useWishlistStore();
   const wishlisted = isWishlisted(product.id);
 
-  const primaryImage = product.images?.find((i) => i.is_primary)?.image || product.images?.[0]?.image;
+  const primaryImage = product.images?.find((i) => i.is_primary)?.url || product.images?.[0]?.url;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();

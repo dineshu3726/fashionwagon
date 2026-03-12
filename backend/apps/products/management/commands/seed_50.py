@@ -1,7 +1,5 @@
 from django.core.management.base import BaseCommand
 from apps.products.models import Category, Product, ProductImage
-import urllib.request, os
-from django.conf import settings
 
 WOMEN_KURTAS = [
     ('Biba', 'Floral Embroidered Anarkali Kurta', 1499, 30, ['XS','S','M','L','XL','XXL'], ['Blue','Pink','White'], 4.3, 128),
@@ -472,14 +470,6 @@ IMAGES = {
 }
 
 
-def download_image(url, dest_path):
-    os.makedirs(os.path.dirname(dest_path), exist_ok=True)
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    with urllib.request.urlopen(req, timeout=15) as r:
-        with open(dest_path, 'wb') as f:
-            f.write(r.read())
-
-
 class Command(BaseCommand):
     help = 'Seed 50+ products per category'
 
@@ -506,15 +496,9 @@ class Command(BaseCommand):
 
             url = img_list[img_idx % len(img_list)]
             img_idx += 1
-            filename = f'p_{p.id}.jpg'
-            dest = os.path.join(settings.MEDIA_ROOT, 'products', filename)
 
-            try:
-                download_image(url, dest)
-                ProductImage.objects.create(product=p, image=f'products/{filename}', is_primary=True)
-                self.stdout.write(f'  ✓ [{p.id}] {brand} — {name}')
-            except Exception as e:
-                self.stdout.write(self.style.WARNING(f'  ⚠ [{p.id}] {brand} — {name} (no img: {e})'))
+            ProductImage.objects.create(product=p, external_url=url, is_primary=True)
+            self.stdout.write(f'  ✓ [{p.id}] {brand} — {name}')
 
             created += 1
 

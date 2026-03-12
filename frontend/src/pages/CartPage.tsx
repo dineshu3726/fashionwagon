@@ -26,7 +26,7 @@ export default function CartPage() {
         {/* Items */}
         <div className="flex-1 space-y-4">
           {items.map((item) => {
-            const image = item.product.images?.find((i) => i.is_primary)?.image || item.product.images?.[0]?.image;
+            const image = item.product.images?.find((i) => i.is_primary)?.url || item.product.images?.[0]?.url;
             return (
               <div key={`${item.product.id}-${item.size}`} className="flex gap-4 border-b pb-6">
                 <Link to={`/product/${item.product.id}`} className="w-24 h-32 bg-gray-100 shrink-0 overflow-hidden">

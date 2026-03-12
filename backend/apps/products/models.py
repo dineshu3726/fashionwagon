@@ -44,8 +44,18 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/', blank=True, null=True)
+    external_url = models.URLField(blank=True, default='')
     is_primary = models.BooleanField(default=False)
+
+    def get_image_url(self, request=None):
+        if self.external_url:
+            return self.external_url
+        if self.image:
+            if request:
+                return request.build_absolute_uri(self.image.url)
+            return self.image.url
+        return ''
 
     def __str__(self):
         return f"Image for {self.product.name}"
