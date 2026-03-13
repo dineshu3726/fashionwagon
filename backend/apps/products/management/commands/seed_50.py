@@ -425,8 +425,25 @@ ACCESSORIES = [
     ('Classique', 'Leather Wallet', 1299, 20, ['One Size'], ['Brown','Black','Tan'], 4.4, 167),
 ]
 
-# Image pools per gender
+# Image pools per gender/category
 IMAGES = {
+    'kurtas': [
+        'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&q=80',
+        'https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80',
+        'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80',
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80',
+        'https://images.unsplash.com/photo-1592669241067-2a4ec7c09cc6?w=600&q=80',
+        'https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=600&q=80',
+        'https://images.unsplash.com/photo-1614846384571-1e15d5f22ffe?w=600&q=80',
+        'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&q=80',
+        'https://images.unsplash.com/photo-1601987077677-5346c4e1b3e7?w=600&q=80',
+        'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=80',
+        'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80',
+        'https://images.unsplash.com/photo-1603217879853-7c19b4c56ab1?w=600&q=80',
+        'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=600&q=80',
+        'https://images.unsplash.com/photo-1614615573078-b1de7b06e485?w=600&q=80',
+        'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=80',
+    ],
     'women': [
         'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80',
         'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80',
@@ -479,7 +496,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(f'Category not found: {category_slug}'))
             return 0
 
-        img_list = IMAGES.get(gender_key, IMAGES['women'])
+        img_list = IMAGES.get(category_slug, IMAGES.get(gender_key, IMAGES['women']))
         img_idx = 0
         created = 0
 

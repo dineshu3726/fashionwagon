@@ -6,3 +6,4 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 python manage.py create_superuser_env
 python manage.py seed_50
+python manage.py fix_ethnic_images
