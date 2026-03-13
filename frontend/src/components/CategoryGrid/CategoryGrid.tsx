@@ -5,7 +5,7 @@ const categories = [
     label: "Women's",
     sub: 'Kurtas, Dresses, Tops',
     link: '/products?gender=women',
-    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4b4357?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
     span: 'md:col-span-2 md:row-span-2',
   },
   {
