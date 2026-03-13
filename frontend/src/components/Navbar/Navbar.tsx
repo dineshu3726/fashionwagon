@@ -46,12 +46,9 @@ export default function Navbar() {
       {/* Main navbar */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <img src="/fw_logo.jpg" alt="FashionWagon" className="h-14 w-14 object-contain rounded-sm" />
-          <div className="hidden sm:flex flex-col leading-none">
-            <span className="text-xl font-black uppercase tracking-tight text-[#1A5C58]">Fashion</span>
-            <span className="text-xl font-black uppercase tracking-tight text-[#C9A84C]">Wagon</span>
-          </div>
+        <Link to="/" className="flex flex-col leading-none">
+          <span className="text-2xl font-black uppercase tracking-tight text-[#1A5C58]">Fashion</span>
+          <span className="text-2xl font-black uppercase tracking-tight text-[#C9A84C]">Wagon</span>
         </Link>
 
         {/* Desktop Nav */}
