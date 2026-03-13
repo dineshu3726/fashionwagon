@@ -21,6 +21,7 @@ export default function ProductListPage() {
   const [filterOpen, setFilterOpen] = useState(false);
 
   const gender = searchParams.get('gender') || '';
+  const category = searchParams.get('category') || '';
   const search = searchParams.get('search') || '';
   const ordering = searchParams.get('ordering') || '-created_at';
   const minPrice = searchParams.get('min_price') || '';
@@ -30,6 +31,7 @@ export default function ProductListPage() {
     setLoading(true);
     const params: Record<string, string> = { ordering };
     if (gender) params.gender = gender;
+    if (category) params.category = category;
     if (search) params.search = search;
     if (minPrice) params.min_price = minPrice;
     if (maxPrice) params.max_price = maxPrice;
@@ -40,7 +42,7 @@ export default function ProductListPage() {
         setCount(res.data.count || 0);
       })
       .finally(() => setLoading(false));
-  }, [gender, search, ordering, minPrice, maxPrice]);
+  }, [gender, category, search, ordering, minPrice, maxPrice]);
 
   const setParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams);
@@ -52,6 +54,10 @@ export default function ProductListPage() {
 
   const pageTitle = search
     ? `Results for "${search}"`
+    : category && gender
+    ? `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s ${category.charAt(0).toUpperCase() + category.slice(1)}`
+    : category
+    ? category.charAt(0).toUpperCase() + category.slice(1)
     : gender
     ? `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Fashion`
     : 'All Products';
