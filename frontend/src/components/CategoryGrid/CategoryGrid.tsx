@@ -1,44 +1,76 @@
 import { Link } from 'react-router-dom';
 
 const categories = [
-  { label: "Women's Fashion", sub: 'Kurtas, Dresses, Sarees', gender: 'women', emoji: '👗', bg: 'bg-pink-50', accent: '#C9A84C' },
-  { label: "Men's Fashion", sub: 'Shirts, T-Shirts, Jeans', gender: 'men', emoji: '👔', bg: 'bg-blue-50', accent: '#1A5C58' },
-  { label: "Kids' Fashion", sub: 'Boys, Girls, Infant', gender: 'kids', emoji: '🧒', bg: 'bg-yellow-50', accent: '#C9A84C' },
-  { label: 'Accessories', sub: 'Bags, Belts, Jewellery', slug: 'accessories', emoji: '👜', bg: 'bg-green-50', accent: '#1A5C58' },
-  { label: 'Ethnic Wear', sub: 'Kurtas, Sherwanis, Sarees', gender: 'women', category: 'kurtas', emoji: '🪆', bg: 'bg-orange-50', accent: '#C9A84C' },
-  { label: 'Western Wear', sub: 'Tops, Jeans, Dresses', gender: 'women', category: 'tops', emoji: '✨', bg: 'bg-purple-50', accent: '#1A5C58' },
-  { label: "Men's Ethnic", sub: 'Kurtas, Sherwanis, Dhotis', gender: 'men', category: 'ethnic-men', emoji: '🧣', bg: 'bg-amber-50', accent: '#C9A84C' },
-  { label: 'Sale', sub: 'Up to 60% off', sale: true, emoji: '🏷️', bg: 'bg-red-50', accent: '#e07b4f' },
+  {
+    label: "Women's",
+    sub: 'Kurtas, Dresses, Tops',
+    link: '/products?gender=women',
+    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4b4357?w=800&q=80',
+    span: 'md:col-span-2 md:row-span-2',
+  },
+  {
+    label: "Men's",
+    sub: 'Shirts, T-Shirts, Jeans',
+    link: '/products?gender=men',
+    image: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=800&q=80',
+    span: '',
+  },
+  {
+    label: 'Accessories',
+    sub: 'Bags, Jewellery & More',
+    link: '/products?gender=unisex',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80',
+    span: '',
+  },
+  {
+    label: "Kids'",
+    sub: 'Boys, Girls & Infant',
+    link: '/products?gender=kids',
+    image: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=800&q=80',
+    span: '',
+  },
+  {
+    label: 'Sale',
+    sub: 'Up to 60% off',
+    link: '/products?ordering=-discount_percent',
+    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80',
+    span: '',
+  },
 ];
 
 export default function CategoryGrid() {
-  const getLink = (cat: typeof categories[0]) => {
-    if ('sale' in cat) return '/products?ordering=-discount_percent';
-    if ('slug' in cat) return `/products?category=${cat.slug}`;
-    let url = `/products?gender=${cat.gender}`;
-    if ('category' in cat) url += `&category=${cat.category}`;
-    return url;
-  };
-
   return (
-    <section className="max-w-7xl mx-auto px-4 py-14">
-      <div className="text-center mb-10">
-        <p className="text-[#C9A84C] text-sm font-semibold uppercase tracking-widest mb-2">Explore</p>
-        <h2 className="text-3xl font-bold text-[#1A5C58]">Shop by Category</h2>
-        <p className="text-gray-400 text-sm mt-2">Curated collections for every occasion</p>
+    <section className="max-w-7xl mx-auto px-4 py-16">
+      <div className="mb-10">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C9A84C] mb-2">Collections</p>
+        <h2 className="text-4xl font-black uppercase text-[#1c1c1c] tracking-tight">Shop by Category</h2>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-auto md:grid-rows-2 gap-3 h-auto md:h-[600px]">
         {categories.map((cat) => (
           <Link
             key={cat.label}
-            to={getLink(cat)}
-            className={`${cat.bg} rounded-xl p-6 flex flex-col items-center gap-3 hover:shadow-lg transition-all group border border-transparent hover:border-[#C9A84C]`}
+            to={cat.link}
+            className={`relative overflow-hidden group ${cat.span} min-h-[200px]`}
           >
-            <span className="text-4xl group-hover:scale-110 transition-transform">{cat.emoji}</span>
-            <div className="text-center">
-              <p className="font-bold text-[#1c1c1c] text-sm">{cat.label}</p>
-              <p className="text-xs text-gray-500 mt-0.5">{cat.sub}</p>
-              <p className="text-xs font-semibold mt-2" style={{ color: cat.accent }}>Shop Now →</p>
+            {/* Background image */}
+            <img
+              src={cat.image}
+              alt={cat.label}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            {/* Hover tint */}
+            <div className="absolute inset-0 bg-[#1A5C58]/0 group-hover:bg-[#1A5C58]/30 transition-all duration-300" />
+
+            {/* Text */}
+            <div className="absolute bottom-0 left-0 p-5">
+              <h3 className="text-white font-black text-2xl uppercase tracking-tight leading-none">{cat.label}</h3>
+              <p className="text-gray-300 text-xs mt-1 uppercase tracking-wider">{cat.sub}</p>
+              <span className="inline-block mt-3 text-xs font-bold uppercase tracking-widest text-[#C9A84C] border-b border-[#C9A84C] pb-0.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                Shop Now
+              </span>
             </div>
           </Link>
         ))}

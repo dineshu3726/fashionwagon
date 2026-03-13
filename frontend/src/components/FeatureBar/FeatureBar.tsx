@@ -10,19 +10,17 @@ const features = [
 
 export default function FeatureBar() {
   return (
-    <section className="bg-[#F5F0E8] border-y border-[#C9A84C30]">
-      <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-5 gap-6">
-        {features.map(({ icon: Icon, title, desc }) => (
-          <div key={title} className="flex items-center gap-3">
-            <div className="bg-white p-2.5 rounded-full shadow-sm border border-[#C9A84C30]">
-              <Icon size={20} className="text-[#1A5C58]" />
+    <section className="border-y border-gray-100">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-gray-100">
+          {features.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex flex-col items-center gap-2 py-8 px-4 text-center group hover:bg-[#F5F0E8] transition-colors duration-200">
+              <Icon size={22} className="text-[#1A5C58] group-hover:scale-110 transition-transform duration-200" />
+              <p className="font-black text-xs uppercase tracking-wider text-[#1c1c1c]">{title}</p>
+              <p className="text-xs text-gray-400">{desc}</p>
             </div>
-            <div>
-              <p className="font-semibold text-[#1A5C58] text-sm">{title}</p>
-              <p className="text-xs text-gray-500">{desc}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

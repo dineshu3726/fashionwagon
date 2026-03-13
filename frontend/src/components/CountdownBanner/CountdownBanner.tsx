@@ -27,37 +27,38 @@ export default function CountdownBanner() {
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <section className="relative bg-[#1A5C58] text-white py-14 overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-[#C9A84C] rounded-full -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C] rounded-full translate-x-1/2 translate-y-1/2" />
-      </div>
+    <section
+      className="relative w-full min-h-[500px] flex items-center bg-cover bg-center"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80')" }}
+    >
+      <div className="absolute inset-0 bg-[#1A5C58]/85" />
 
-      <div className="max-w-7xl mx-auto px-4 relative flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full py-16 flex flex-col md:flex-row items-center justify-between gap-12">
+        {/* Text */}
         <div>
-          <p className="text-[#C9A84C] text-sm font-semibold uppercase tracking-widest mb-2">
-            🏷️ Limited Time Deal
-          </p>
-          <h2 className="text-4xl font-bold mb-2">
-            Grand Fashion Sale <span className="text-[#C9A84C]">60% OFF</span>
+          <p className="text-[#C9A84C] text-xs font-bold uppercase tracking-[0.3em] mb-4">Limited Time</p>
+          <h2 className="text-5xl md:text-7xl font-black text-white uppercase leading-none tracking-tight mb-4">
+            Grand <br />
+            <span className="text-[#C9A84C]">Sale</span>
           </h2>
-          <p className="text-gray-300 mb-1">Across all categories — Indian & Western wear</p>
-          <p className="text-[#C9A84C] text-sm font-medium">Cultural Fusion • Timeless Style • Eco-Friendly</p>
+          <p className="text-white/70 text-sm uppercase tracking-wider mb-2">Up to 60% off across all categories</p>
+          <p className="text-[#C9A84C] text-xs font-bold uppercase tracking-widest mb-8">Cultural Fusion • Timeless Style • Eco-Friendly</p>
           <Link
             to="/products?ordering=-discount_percent"
-            className="inline-block mt-5 bg-[#C9A84C] text-white px-8 py-3 text-sm font-semibold hover:bg-white hover:text-[#1A5C58] transition-colors tracking-wider"
+            className="inline-block bg-[#C9A84C] text-white px-10 py-4 text-sm font-black uppercase tracking-widest hover:bg-white hover:text-[#1A5C58] transition-all duration-200"
           >
-            SHOP THE SALE
+            Shop the Sale
           </Link>
         </div>
 
         {/* Countdown */}
-        <div className="flex gap-3">
-          {[{ label: 'Days', val: days }, { label: 'Hours', val: hours }, { label: 'Mins', val: minutes }, { label: 'Secs', val: seconds }].map(({ label, val }) => (
-            <div key={label} className="text-center bg-white/10 border border-[#C9A84C40] px-5 py-4 rounded-xl min-w-[70px]">
-              <p className="text-3xl font-bold text-[#C9A84C]">{pad(val)}</p>
-              <p className="text-xs text-gray-300 mt-1 uppercase tracking-wider">{label}</p>
+        <div className="flex gap-2 md:gap-4">
+          {[{ label: 'Days', val: days }, { label: 'Hrs', val: hours }, { label: 'Min', val: minutes }, { label: 'Sec', val: seconds }].map(({ label, val }) => (
+            <div key={label} className="text-center min-w-[70px] md:min-w-[90px]">
+              <div className="bg-white/10 border border-white/20 px-4 py-5">
+                <p className="text-4xl md:text-5xl font-black text-[#C9A84C] leading-none">{pad(val)}</p>
+              </div>
+              <p className="text-white/60 text-xs uppercase tracking-widest mt-2 font-bold">{label}</p>
             </div>
           ))}
         </div>
